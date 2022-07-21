@@ -30,9 +30,37 @@ namespace Service.Services
             return student;
         }
 
-        public object Create(Student student)
+        public Student Update(int id, Student student)
         {
-            throw new NotImplementedException();
+            Student dbStudent = GetById(id);
+            if (dbStudent is null) return null;
+            student.Id = dbStudent.Id;
+            _studentRepository.Update(student);
+            return dbStudent;
+        }
+
+        public Student GetById(int id)
+        {
+            var student = _studentRepository.Get(m => m.Id == id);
+            if (student is null) return null;
+            return student;
+        }
+        public Student Delete(int id)
+        {
+            Student student = GetById(id);
+            if (student == null) return null;
+            _studentRepository.Delete(student);
+            return student;
+        }
+        public Student GetByAge(int age)
+        {
+            var student = _studentRepository.Get(m => m.Age == age);
+            if (student is null) return null;
+            return student;
+        }
+        public List<Student> Search(string search)
+        {
+            return _studentRepository.GetAll(m => m.Name.Trim().ToLower().StartsWith(search.Trim().ToLower()));
         }
     }
 }

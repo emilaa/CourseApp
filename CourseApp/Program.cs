@@ -45,9 +45,53 @@ namespace CourseApp
                             groupController.GetById();
                             break;
 
+                        case (int)Menues.GetAllGroupsByTeacher:
+                            Console.WriteLine();
+                            break;
+
+                        case (int)Menues.GetAllGroupsByRoom:
+                            Console.WriteLine();
+                            break;
+
+                        case (int)Menues.GetAllGroups:
+                            groupController.GetAll();
+                            break;
+
                         case (int)Menues.CreateStudent:
                             studentController.Create();
                             break;
+
+                        case (int)Menues.UpdateStudent:
+                            studentController.Update();
+                            break;
+
+                        case (int)Menues.GetStudentById:
+                            studentController.GetById();
+                            break;
+
+                        case (int)Menues.DeleteStudent:
+                            studentController.Delete();
+                            break;
+
+                        case (int)Menues.GetStudentsByAge:
+                            studentController.GetByAge();
+                            break;
+
+                        case (int)Menues.GetAllStudentsByGroupId:
+                            Console.WriteLine();
+                            break;
+
+                        case (int)Menues.SearchForGroupsByName:
+                            groupController.Search();
+                            break;
+
+                        case (int)Menues.SearchForStudentsByNameOrSurname:
+                            studentController.Search();
+                            break;
+
+
+
+
 
                         default:
                             Helper.WriteConsole(ConsoleColor.Red, "Select correct option number");

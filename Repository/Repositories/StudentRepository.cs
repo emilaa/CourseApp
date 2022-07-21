@@ -26,22 +26,31 @@ namespace Repository.Repositories
 
         public void Delete(Student data)
         {
-            throw new NotImplementedException();
+            AppDbContext<Student>.datas.Remove(data);
         }
 
         public Student Get(Predicate<Student> predicate)
         {
-            throw new NotImplementedException();
+            return predicate != null ? AppDbContext<Student>.datas.Find(predicate) : null;
         }
 
         public List<Student> GetAll(Predicate<Student> predicate)
         {
-            throw new NotImplementedException();
+            return predicate != null ? AppDbContext<Student>.datas.FindAll(predicate) : AppDbContext<Student>.datas;
         }
 
         public void Update(Student data)
         {
-            throw new NotImplementedException();
+            Student student = Get(m => m.Id == data.Id);
+
+            if (!string.IsNullOrEmpty(data.Name))
+                student.Name = data.Name;
+
+            if (!string.IsNullOrEmpty(data.Surname))
+                student.Surname = data.Surname;
+
+            if (!string.IsNullOrEmpty(data.Age.ToString()))
+                student.Age = data.Age;
         }
     }
 }

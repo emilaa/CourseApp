@@ -26,10 +26,12 @@ namespace Service.Services
             return group;
         }
 
-        public void Delete(int id)
+        public Group Delete(int id)
         {
             Group group = GetById(id);
+            if (group == null) return null;
             _groupRepository.Delete(group);
+            return group;
         }
 
         public Group GetById(int id)
@@ -39,13 +41,22 @@ namespace Service.Services
             return group;
         }
 
-        public Group Update(int id, Group library)
+        public Group Update(int id, Group group)
         {
             Group dbGroup = GetById(id);
             if (dbGroup is null) return null;
-            library.Id = dbGroup.Id;
-            _groupRepository.Update(library);
+            group.Id = dbGroup.Id;
+            _groupRepository.Update(group);
             return dbGroup;
+        }
+
+        public List<Group> GetAll()
+        {
+            return _groupRepository.GetAll();
+        }
+        public List<Group> Search(string search)
+        {
+            return _groupRepository.GetAll(m => m.Name.Trim().ToLower().StartsWith(search.Trim().ToLower()));
         }
     }
 }

@@ -31,16 +31,16 @@ namespace Repository.Repositories
 
         public void Update(Group data)
         {
-            Group library = Get(m => m.Id == data.Id);
+            Group group = Get(m => m.Id == data.Id);
 
             if (!string.IsNullOrEmpty(data.Name))
-                library.Name = data.Name;
+                group.Name = data.Name;
 
             if (!string.IsNullOrEmpty(data.Teacher))
-                library.Teacher = data.Teacher;
+                group.Teacher = data.Teacher;
 
             if (!string.IsNullOrEmpty(data.Room))
-                library.Room = data.Room;
+                group.Room = data.Room;
         }
 
         public void Delete(Group data)
