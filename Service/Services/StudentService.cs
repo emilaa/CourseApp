@@ -16,7 +16,6 @@ namespace Service.Services
         public StudentService()
         {
             _studentRepository = new StudentRepository();
-            _groupRepository = new GroupRepository();
         }
 
         public Student Create(int groupId, Student student)
@@ -54,6 +53,7 @@ namespace Service.Services
         }
         public Student GetByAge(int age)
         {
+
             var student = _studentRepository.Get(m => m.Age == age);
             if (student is null) return null;
             return student;
@@ -61,6 +61,10 @@ namespace Service.Services
         public List<Student> Search(string search)
         {
             return _studentRepository.GetAll(m => m.Name.Trim().ToLower().StartsWith(search.Trim().ToLower()));
+        }
+        public List<Student> GetAll()
+        {
+            return _studentRepository.GetAll();
         }
     }
 }

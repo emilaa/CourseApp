@@ -13,5 +13,6 @@ namespace Service.Services.Interfaces
         Student Delete(int id);
         Student GetByAge(int age);
         List<Student> Search(string search);
+        List<Student> GetAll();
     }
 }

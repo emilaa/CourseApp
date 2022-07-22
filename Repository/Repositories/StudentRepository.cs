@@ -34,11 +34,6 @@ namespace Repository.Repositories
             return predicate != null ? AppDbContext<Student>.datas.Find(predicate) : null;
         }
 
-        public List<Student> GetAll(Predicate<Student> predicate)
-        {
-            return predicate != null ? AppDbContext<Student>.datas.FindAll(predicate) : AppDbContext<Student>.datas;
-        }
-
         public void Update(Student data)
         {
             Student student = Get(m => m.Id == data.Id);
@@ -51,6 +46,11 @@ namespace Repository.Repositories
 
             if (!string.IsNullOrEmpty(data.Age.ToString()))
                 student.Age = data.Age;
+        }
+
+        public List<Student> GetAll(Predicate<Student> predicate = null)
+        {
+            return predicate != null ? AppDbContext<Student>.datas.FindAll(predicate) : AppDbContext<Student>.datas;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace CourseApp.Controllers
     public class StudentController
     {
         StudentService studentService = new StudentService();
+        GroupService groupService = new GroupService();
         
         public void Create()
         {
@@ -19,71 +20,81 @@ namespace CourseApp.Controllers
             int selectedGroupId;
             bool isSelectedId = int.TryParse(groupid, out selectedGroupId);
 
-            if (isSelectedId)
+            var data = groupService.GetById(selectedGroupId);
+
+            if (data != null)
             {
-                Helper.WriteConsole(ConsoleColor.Blue, "Add student name : ");
+                if (isSelectedId)
+                {
+                    Helper.WriteConsole(ConsoleColor.Blue, "Add student name : ");
 
                 StudentName: string studentName = Console.ReadLine();
 
-                foreach (var item in studentName)
-                {
-                    for (int i = 0; i <= 9; i++)
+                    foreach (var item in studentName)
                     {
-                        if (item.ToString() == i.ToString())
+                        for (int i = 0; i <= 9; i++)
                         {
-                            Helper.WriteConsole(ConsoleColor.Red, $"Add correct name type");
-                            goto StudentName;
+                            if (item.ToString() == i.ToString())
+                            {
+                                Helper.WriteConsole(ConsoleColor.Red, $"Add correct name type : ");
+                                goto StudentName;
+                            }
                         }
                     }
-                }
 
-                Helper.WriteConsole(ConsoleColor.Blue, "Add student surname : ");
+                    Helper.WriteConsole(ConsoleColor.Blue, "Add student surname : ");
 
                 StudentSurname: string studentSurname = Console.ReadLine();
 
-                foreach (var item in studentSurname)
-                {
-                    for (int i = 0; i <= 9; i++)
+                    foreach (var item in studentSurname)
                     {
-                        if (item.ToString() == i.ToString())
+                        for (int i = 0; i <= 9; i++)
                         {
-                            Helper.WriteConsole(ConsoleColor.Red, $"Add correct surname type");
-                            goto StudentSurname;
+                            if (item.ToString() == i.ToString())
+                            {
+                                Helper.WriteConsole(ConsoleColor.Red, $"Add correct surname type : ");
+                                goto StudentSurname;
+                            }
                         }
                     }
-                }
 
-                Helper.WriteConsole(ConsoleColor.Blue, "Add student age : ");
+                    Helper.WriteConsole(ConsoleColor.Blue, "Add student age : ");
 
                 Age: string studentAge = Console.ReadLine();
-                int age;
-                bool isAge = int.TryParse(studentAge, out age);
+                    int age;
+                    bool isAge = int.TryParse(studentAge, out age);
 
-                if (isAge)
-                {
-                    Student student = new Student()
+                    if (isAge)
                     {
-                        Name = studentName,
-                        Surname = studentSurname,
-                        Age = age
-                    };
+                        Student student = new Student()
+                        {
+                            Name = studentName,
+                            Surname = studentSurname,
+                            Age = age
+                        };
 
-                    var result = studentService.Create(selectedGroupId, student);
+                        var result = studentService.Create(selectedGroupId, student);
 
-                    if (result != null)
-                    {
-                        Helper.WriteConsole(ConsoleColor.Green, $"Student Id : {result.Id}, Name : {result.Name}, Surname : {result.Surname}, Age : {result.Age}, Student group : {result.Group.Name}");
+                        if (result != null)
+                        {
+                            Helper.WriteConsole(ConsoleColor.Green, $"Student Id : {result.Id}, Name : {result.Name}, Surname : {result.Surname}, Age : {result.Age}, Student group : {result.Group.Name}");
+                        }
+                        else
+                        {
+                            Helper.WriteConsole(ConsoleColor.Red, "Group not found, please add correct group id : ");
+                            goto GroupId;
+                        }
                     }
                     else
                     {
-                        Helper.WriteConsole(ConsoleColor.Red, "Group not found, please add correct group id : ");
-                        goto GroupId;
+                        Helper.WriteConsole(ConsoleColor.Red, "Add correct age type : ");
+                        goto Age;
                     }
                 }
                 else
                 {
-                    Helper.WriteConsole(ConsoleColor.Red, "Add correct age type : ");
-                    goto Age;
+                    Helper.WriteConsole(ConsoleColor.Red, "Add correct group id type : ");
+                    goto GroupId;
                 }
             }
             else
@@ -91,6 +102,8 @@ namespace CourseApp.Controllers
                 Helper.WriteConsole(ConsoleColor.Red, "Add correct group id : ");
                 goto GroupId;
             }
+
+             
         }
         public void GetById()
         {
@@ -110,7 +123,7 @@ namespace CourseApp.Controllers
                 }
                 else
                 {
-                    Helper.WriteConsole(ConsoleColor.Red, "Student not found");
+                    Helper.WriteConsole(ConsoleColor.Red, "Student not found ! ");
                     goto StudentId;
                 }
             }
@@ -128,84 +141,94 @@ namespace CourseApp.Controllers
             int studentId;
             bool isStudentId = int.TryParse(updateStudentId, out studentId);
 
-            if (isStudentId)
+            var data = studentService.GetById(studentId);
+
+            if (data != null)
             {
-                Helper.WriteConsole(ConsoleColor.Blue, "Add student new name : ");
+                if (isStudentId)
+                {
+                    Helper.WriteConsole(ConsoleColor.Blue, "Add student new name : ");
 
                 StudentNewName: string studentNewName = Console.ReadLine();
 
-                foreach (var item in studentNewName)
-                {
-                    for (int i = 0; i <= 9; i++)
+                    foreach (var item in studentNewName)
                     {
-                        if (item.ToString() == i.ToString())
+                        for (int i = 0; i <= 9; i++)
                         {
-                            Helper.WriteConsole(ConsoleColor.Red, $"Add correct name type");
-                            goto StudentNewName;
+                            if (item.ToString() == i.ToString())
+                            {
+                                Helper.WriteConsole(ConsoleColor.Red, $"Add correct name type");
+                                goto StudentNewName;
+                            }
                         }
                     }
-                }
 
-                Helper.WriteConsole(ConsoleColor.Blue, "Add student new surname : ");
+                    Helper.WriteConsole(ConsoleColor.Blue, "Add student new surname : ");
 
-            StudentNewSurname: string studentNewSurname = Console.ReadLine();
+                StudentNewSurname: string studentNewSurname = Console.ReadLine();
 
-                foreach (var item in studentNewSurname)
-                {
-                    for (int i = 0; i <= 9; i++)
+                    foreach (var item in studentNewSurname)
                     {
-                        if (item.ToString() == i.ToString())
+                        for (int i = 0; i <= 9; i++)
                         {
-                            Helper.WriteConsole(ConsoleColor.Red, $"Add correct surname type");
-                            goto StudentNewSurname;
+                            if (item.ToString() == i.ToString())
+                            {
+                                Helper.WriteConsole(ConsoleColor.Red, $"Add correct surname type");
+                                goto StudentNewSurname;
+                            }
                         }
                     }
-                }
 
-                Helper.WriteConsole(ConsoleColor.Blue, "Add student new age : ");
+                    Helper.WriteConsole(ConsoleColor.Blue, "Add student new age : ");
 
                 Age: string studentNewAge = Console.ReadLine();
-                int newAge;
-                bool isNewAge = int.TryParse(studentNewAge, out newAge);
+                    int newAge;
+                    bool isNewAge = int.TryParse(studentNewAge, out newAge);
 
-                if (isNewAge || studentNewAge == "")
-                {
-
-                    bool isSeatCountEmpty = string.IsNullOrEmpty(studentNewAge);
-                    int? age = null;
-
-                    if (isNewAge)
+                    if (isNewAge || studentNewAge == "")
                     {
-                        age = null;
+
+                        bool isSeatCountEmpty = string.IsNullOrEmpty(studentNewAge);
+                        int? age = null;
+
+                        if (isNewAge)
+                        {
+                            age = null;
+                        }
+                        else
+                        {
+                            age = newAge;
+                        }
+
+                        Student student = new Student()
+                        {
+                            Name = studentNewName,
+                            Surname = studentNewSurname,
+                            Age = age
+                        };
+
+                        var resultStudent = studentService.Update(studentId, student);
+
+                        if (resultStudent != null)
+                        {
+                            Helper.WriteConsole(ConsoleColor.Green, $"Student Id : {resultStudent.Id}, Name : {resultStudent.Name}, Surname : {resultStudent.Surname}, Age : {resultStudent.Age},Student group : {resultStudent.Group.Name}");
+                        }
+                        else
+                        {
+                            Helper.WriteConsole(ConsoleColor.Red, "Student not found, please try again : ");
+                            goto StudentId;
+                        }
                     }
                     else
                     {
-                        age = newAge;
-                    }
-
-                    Student student = new Student()
-                    {
-                        Name = studentNewName,
-                        Surname = studentNewSurname,
-                        Age = age
-                    };
-
-                    var resultStudent = studentService.Update(studentId, student);
-
-                    if (resultStudent == null)
-                    {
-                        Helper.WriteConsole(ConsoleColor.Red, "Student not found, please try again : ");
-                        goto StudentId;
-                    }
-                    else
-                    {
-                        Helper.WriteConsole(ConsoleColor.Green, $"Student Id : {resultStudent.Id}, Name : {resultStudent.Name}, Surname : {resultStudent.Surname}, Age : {resultStudent.Age},Student group : {resultStudent.Group.Name}");
+                        Helper.WriteConsole(ConsoleColor.Red, "Add correct age type : ");
+                        goto Age;
                     }
                 }
                 else
                 {
-                    Helper.WriteConsole(ConsoleColor.Red, "Add correct age type : ");
-                    goto Age;
+                    Helper.WriteConsole(ConsoleColor.Red, "Add correct student id type : ");
+                    goto StudentId;
                 }
             }
             else
@@ -233,7 +256,6 @@ namespace CourseApp.Controllers
                 else
                 {
                     Helper.WriteConsole(ConsoleColor.Green, "Student deleted");
-                    goto StudentId;
                 }
             }
             else
@@ -260,7 +282,7 @@ namespace CourseApp.Controllers
                 }
                 else
                 {
-                    Helper.WriteConsole(ConsoleColor.Red, "Student not found");
+                    Helper.WriteConsole(ConsoleColor.Red, "Student not found ! ");
                     goto StudentAge;
                 }
             }

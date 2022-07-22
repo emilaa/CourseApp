@@ -53,55 +53,65 @@ namespace CourseApp.Controllers
             GroupId: string updateGroupId = Console.ReadLine();
             int groupId;
             bool isGroupId = int.TryParse(updateGroupId, out groupId);
+            
+            var data = groupService.GetById(groupId);
 
-            if (isGroupId)
+            if (data != null )
             {
-                Helper.WriteConsole(ConsoleColor.Blue, "Add group new name : ");
+                if (isGroupId)
+                {
+                    Helper.WriteConsole(ConsoleColor.Blue, "Add group new name : ");
 
-                string groupNewName = Console.ReadLine();
+                    string groupNewName = Console.ReadLine();
 
-                Helper.WriteConsole(ConsoleColor.Blue, "Add group new teacher : ");
+                    Helper.WriteConsole(ConsoleColor.Blue, "Add group new teacher : ");
 
                 TeacherName: string teacherNewName = Console.ReadLine();
 
-                foreach (var item in teacherNewName)
-                {
-                    for (int i = 0; i <= 9; i++)
+                    foreach (var item in teacherNewName)
                     {
-                        if (item.ToString() == i.ToString())
+                        for (int i = 0; i <= 9; i++)
                         {
-                            Helper.WriteConsole(ConsoleColor.Red, $"Add correct type name");
-                            goto TeacherName;
+                            if (item.ToString() == i.ToString())
+                            {
+                                Helper.WriteConsole(ConsoleColor.Red, $"Add correct type name");
+                                goto TeacherName;
+                            }
                         }
                     }
-                }
 
-                Helper.WriteConsole(ConsoleColor.Blue, "Add group new room : ");
+                    Helper.WriteConsole(ConsoleColor.Blue, "Add group new room : ");
 
-                string roomNewName = Console.ReadLine();
+                    string roomNewName = Console.ReadLine();
 
-                Group group = new Group()
-                {
-                    Name = groupNewName,
-                    Teacher = teacherNewName,
-                    Room = roomNewName
-                };
+                    Group group = new Group()
+                    {
+                        Name = groupNewName,
+                        Teacher = teacherNewName,
+                        Room = roomNewName
+                    };
 
-                var resultGroup = groupService.Update(groupId, group);
+                    var resultGroup = groupService.Update(groupId, group);
 
-                if (resultGroup == null)
-                {
-                    Helper.WriteConsole(ConsoleColor.Red, "Group not found, please try again : ");
-                    goto GroupId;
+                    if (resultGroup == null)
+                    {
+                        Helper.WriteConsole(ConsoleColor.Red, "Group not found, please try again");
+                        goto GroupId;
+                    }
+                    else
+                    {
+                        Helper.WriteConsole(ConsoleColor.Green, $"Group Id : {resultGroup.Id}, Name : {resultGroup.Name}, Teacher : {resultGroup.Teacher}, Room : {resultGroup.Room}");
+                    }
                 }
                 else
                 {
-                    Helper.WriteConsole(ConsoleColor.Green, $"Group Id : {resultGroup.Id}, Name : {resultGroup.Name}, Teacher : {resultGroup.Teacher}, Room : {resultGroup.Room}");
+                    Helper.WriteConsole(ConsoleColor.Red, "Add correct id type");
+                    goto GroupId;
                 }
             }
             else
             {
-                Helper.WriteConsole(ConsoleColor.Red, "Add correct group id : ");
+                Helper.WriteConsole(ConsoleColor.Red, "Group not found, please try again");
                 goto GroupId;
             }
         }
@@ -124,7 +134,6 @@ namespace CourseApp.Controllers
                 else
                 {
                     Helper.WriteConsole(ConsoleColor.Green, "Group deleted");
-                    goto GroupId;
                 }
             }
             else
