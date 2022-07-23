@@ -58,6 +58,14 @@ namespace Service.Services
         {
             return _groupRepository.GetAll(m => m.Name.Trim().ToLower().StartsWith(search.Trim().ToLower()));
         }
+        public List<Group> GetByTeacher(string teacher)
+        {
+            return _groupRepository.GetAll(m => m.Teacher.Trim().ToLower() == teacher.Trim().ToLower());
+        }
+        public List<Group> GetByRoom(string room)
+        {
+            return _groupRepository.GetAll(m => m.Room.Trim().ToLower() == room.Trim().ToLower());
+        }
     }
 }
- 
+  

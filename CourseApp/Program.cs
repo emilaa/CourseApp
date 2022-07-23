@@ -46,11 +46,11 @@ namespace CourseApp
                             break;
 
                         case (int)Menues.GetAllGroupsByTeacher:
-                            Console.WriteLine();
+                            groupController.GetByTeacher();
                             break;
 
                         case (int)Menues.GetAllGroupsByRoom:
-                            Console.WriteLine();
+                            groupController.GetByRoom();
                             break;
 
                         case (int)Menues.GetAllGroups:
@@ -89,10 +89,6 @@ namespace CourseApp
                             studentController.Search();
                             break;
 
-
-
-
-
                         default:
                             Helper.WriteConsole(ConsoleColor.Red, "Select correct option number");
                             break;
@@ -104,9 +100,9 @@ namespace CourseApp
         private static void GetMenues()
         {
             Helper.WriteConsole(ConsoleColor.Blue, "Select one option : ");
-            Helper.WriteConsole(ConsoleColor.Yellow, "1 - Create group, 2 - Update group, 3 - Delete group, 4 - Get group by id," +
-                "5 - Get all groups by teacher, 6 - Get all groups by room, 7 - Get all groups, 8 - Create student, 9 - Update student" +
-                "10 - Get student  by id, 11 - Delete student, 12 - Get students by age, 13 - Get all students by group id" +
+            Helper.WriteConsole(ConsoleColor.Yellow, "1 - Create group, 2 - Update group, 3 - Delete group, 4 - Get group by id," + " " +
+                "5 - Get all groups by teacher, 6 - Get all groups by room, 7 - Get all groups, 8 - Create student, 9 - Update student" + " " +
+                "10 - Get student  by id, 11 - Delete student, 12 - Get students by age, 13 - Get all students by group id" + " " +
                 "14 - Search for groups by name, 15 - Search for students by name or surname");
         }
     }

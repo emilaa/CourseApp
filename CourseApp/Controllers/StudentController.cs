@@ -102,8 +102,6 @@ namespace CourseApp.Controllers
                 Helper.WriteConsole(ConsoleColor.Red, "Add correct group id : ");
                 goto GroupId;
             }
-
-             
         }
         public void GetById()
         {
@@ -248,6 +246,7 @@ namespace CourseApp.Controllers
             if (isStudentId)
             {
                 var result = studentService.Delete(id);
+                
                 if (result == null)
                 {
                     Helper.WriteConsole(ConsoleColor.Red, "Select correct id : ");
@@ -291,8 +290,8 @@ namespace CourseApp.Controllers
                 Helper.WriteConsole(ConsoleColor.Red, "Add correct age type : ");
                 goto StudentAge;
             }
-        }
-        public void Search()
+        } 
+        public void Search() 
         {
             Helper.WriteConsole(ConsoleColor.Blue, "Add group search name or surname : ");
 
@@ -312,6 +311,6 @@ namespace CourseApp.Controllers
                 Helper.WriteConsole(ConsoleColor.Red, "Group not found");
                 goto SearchNameOrSurname;
             }
-        }
+        } 
     }
 }

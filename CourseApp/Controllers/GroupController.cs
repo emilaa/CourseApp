@@ -93,7 +93,7 @@ namespace CourseApp.Controllers
 
                     var resultGroup = groupService.Update(groupId, group);
 
-                    if (resultGroup == null)
+                    if (resultGroup == null) 
                     {
                         Helper.WriteConsole(ConsoleColor.Red, "Group not found, please try again");
                         goto GroupId;
@@ -200,6 +200,60 @@ namespace CourseApp.Controllers
                 goto SearchName;
             }
         }
+        public void GetByTeacher()
+        {
+            Helper.WriteConsole(ConsoleColor.Blue, "Add teacher name : ");
+        
+        TeacherName: string teacherName = Console.ReadLine();
+
+            foreach (var item in teacherName)
+            {
+                for (int i = 0; i <= 9; i++)
+                {
+                    if (item.ToString() == i.ToString())
+                    {
+                        Helper.WriteConsole(ConsoleColor.Red, $"Add correct type name : ");
+                        goto TeacherName;
+                    }
+                }
+            }
+
+            List<Group> resultTeachers = groupService.GetByTeacher(teacherName);
+
+            if (resultTeachers.Count != 0)
+            {
+                foreach (var item in resultTeachers)
+                {
+                    Helper.WriteConsole(ConsoleColor.Green, $"Group id : {item.Id}, Name : {item.Name}, Teacher : {item.Teacher}, Room : {item.Room}");
+                }
+            }
+            else
+            {
+                Helper.WriteConsole(ConsoleColor.Red, "Teacher not found ! ");
+                goto TeacherName;
+            }
+        }
+        public void GetByRoom()
+        {
+            Helper.WriteConsole(ConsoleColor.Blue, "Add room name : ");
+
+            RoomName: string roomName = Console.ReadLine();
+
+            List<Group> resultRooms = groupService.GetByRoom(roomName);
+
+            if (resultRooms.Count != 0)
+            {
+                foreach (var item in resultRooms)
+                {
+                    Helper.WriteConsole(ConsoleColor.Green, $"Group id : {item.Id}, Name : {item.Name}, Teacher : {item.Teacher}, Room : {item.Room}");
+                }
+            }
+            else
+            {
+                Helper.WriteConsole(ConsoleColor.Red, "Room not found ! ");
+                goto RoomName;
+            }
+        }  
 
     }
 }

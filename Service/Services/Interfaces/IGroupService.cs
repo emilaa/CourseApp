@@ -13,5 +13,6 @@ namespace Service.Services.Interfaces
         Group GetById(int id);
         List<Group> GetAll();
         List<Group> Search(string search);
+        List<Group> GetByTeacher(string teacher);
     }
 }
