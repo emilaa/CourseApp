@@ -162,13 +162,6 @@ namespace CourseApp.Controllers
             Helper.WriteConsole(ConsoleColor.Blue, "Add student id : ");
 
         StudentId: string updateStudentId = Console.ReadLine();
-
-            if (string.IsNullOrWhiteSpace(updateStudentId))
-            {
-                Helper.WriteConsole(ConsoleColor.Red, "Id can't be space, please try again : ");
-                goto StudentId;
-            }
-
             int studentId;
             bool isStudentId = int.TryParse(updateStudentId, out studentId);
 
@@ -182,17 +175,15 @@ namespace CourseApp.Controllers
 
                 StudentNewName: string studentNewName = Console.ReadLine();
 
-                    for (int i = 0; i <= 9; i++)
+                    foreach (var item in studentNewName)
                     {
-                        if (studentNewName.Contains(i.ToString()))
+                        for (int i = 0; i <= 9; i++)
                         {
-                            Helper.WriteConsole(ConsoleColor.Red, $"Add correct name type : ");
-                            goto StudentNewName;
-                        }
-                        else if (string.IsNullOrWhiteSpace(studentNewName))
-                        {
-                            Helper.WriteConsole(ConsoleColor.Red, $"Name can't be space, please try again : ");
-                            goto StudentNewName;
+                            if (item.ToString() == i.ToString())
+                            {
+                                Helper.WriteConsole(ConsoleColor.Red, $"Add correct name type : ");
+                                goto StudentNewName;
+                            }
                         }
                     }
 
@@ -200,30 +191,21 @@ namespace CourseApp.Controllers
 
                 StudentNewSurname: string studentNewSurname = Console.ReadLine();
 
-                    for (int i = 0; i <= 9; i++)
+                    foreach (var item in studentNewSurname)
                     {
-                        if (studentNewSurname.Contains(i.ToString()))
+                        for (int i = 0; i <= 9; i++)
                         {
-                            Helper.WriteConsole(ConsoleColor.Red, $"Add correct surname type : ");
-                            goto StudentNewSurname;
-                        }
-                        else if (string.IsNullOrWhiteSpace(studentNewSurname))
-                        {
-                            Helper.WriteConsole(ConsoleColor.Red, $"Surname can't be space, please try again : ");
-                            goto StudentNewSurname;
+                            if (item.ToString() == i.ToString())
+                            {
+                                Helper.WriteConsole(ConsoleColor.Red, $"Add correct name type : ");
+                                goto StudentNewSurname;
+                            }
                         }
                     }
 
                     Helper.WriteConsole(ConsoleColor.Blue, "Add student new age : ");
 
                 Age: string studentNewAge = Console.ReadLine();
-
-                    if (string.IsNullOrWhiteSpace(studentNewAge))
-                    {
-                        Helper.WriteConsole(ConsoleColor.Red, "Age can't be space, please try again : ");
-                        goto Age;
-                    }
-
                     int newAge;
                     bool isNewAge = int.TryParse(studentNewAge, out newAge);
 

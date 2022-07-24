@@ -66,13 +66,6 @@ namespace CourseApp.Controllers
             Helper.WriteConsole(ConsoleColor.Blue, "Add group id : ");
 
             GroupId: string updateGroupId = Console.ReadLine();
-
-            if (string.IsNullOrWhiteSpace(updateGroupId))
-            {
-                Helper.WriteConsole(ConsoleColor.Red, "Id can't be space, please try again : ");
-                goto GroupId;
-            }
-
             int groupId;
             bool isGroupId = int.TryParse(updateGroupId, out groupId);
             
@@ -84,41 +77,27 @@ namespace CourseApp.Controllers
                 {
                     Helper.WriteConsole(ConsoleColor.Blue, "Add group new name : ");
 
-                    GroupName: string groupNewName = Console.ReadLine();
-
-                    if (string.IsNullOrWhiteSpace(groupNewName))
-                    {
-                        Helper.WriteConsole(ConsoleColor.Red, "Name can't be space, please try again : ");
-                        goto GroupName;
-                    }
+                    string groupNewName = Console.ReadLine();
 
                     Helper.WriteConsole(ConsoleColor.Blue, "Add group new teacher : ");
 
                 TeacherName: string teacherNewName = Console.ReadLine();
 
-                    for (int i = 0; i <= 9; i++)
+                    foreach (var item in teacherNewName)
                     {
-                        if (teacherNewName.Contains(i.ToString()))
+                        for (int i = 0; i <= 9; i++)
                         {
-                            Helper.WriteConsole(ConsoleColor.Red, $"Add correct name type : ");
-                            goto TeacherName;
-                        }
-                        else if (string.IsNullOrWhiteSpace(teacherNewName))
-                        {
-                            Helper.WriteConsole(ConsoleColor.Red, $"Name can't be space, please try again : ");
-                            goto TeacherName;
+                            if (item.ToString() == i.ToString())
+                            {
+                                Helper.WriteConsole(ConsoleColor.Red, $"Add correct name type : ");
+                                goto TeacherName;
+                            }
                         }
                     }
 
                     Helper.WriteConsole(ConsoleColor.Blue, "Add group new room : ");
 
-                    RoomName: string roomNewName = Console.ReadLine();
-
-                    if (string.IsNullOrWhiteSpace(roomNewName))
-                    {
-                        Helper.WriteConsole(ConsoleColor.Red, "Name can't be space, please try again : ");
-                        goto RoomName;
-                    }
+                    string roomNewName = Console.ReadLine();
 
                     Group group = new Group()
                     {
