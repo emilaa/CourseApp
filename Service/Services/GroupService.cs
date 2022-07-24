@@ -25,7 +25,6 @@ namespace Service.Services
 
             return group;
         }
-
         public Group Delete(int id)
         {
             Group group = GetById(id);
@@ -33,14 +32,12 @@ namespace Service.Services
             _groupRepository.Delete(group);
             return group;
         }
-
         public Group GetById(int id)
         {
             var group = _groupRepository.Get(m => m.Id == id);
             if (group is null) return null;
             return group;
         }
-
         public Group Update(int id, Group group)
         {
             Group dbGroup = GetById(id);
@@ -49,7 +46,6 @@ namespace Service.Services
             _groupRepository.Update(group);
             return dbGroup;
         }
-
         public List<Group> GetAll()
         {
             return _groupRepository.GetAll();

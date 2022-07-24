@@ -11,8 +11,9 @@ namespace Service.Services.Interfaces
         Student GetById(int id);
         Student Update(int id, Student student);
         Student Delete(int id);
-        Student GetByAge(int age);
+        List<Student> GetByAge(int age);
         List<Student> Search(string search);
         List<Student> GetAll();
+        List<Student> GetByGroupId(int id);
     }
 }

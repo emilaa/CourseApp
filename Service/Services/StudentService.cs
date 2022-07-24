@@ -29,7 +29,6 @@ namespace Service.Services
             _count++;
             return student;
         }
-
         public Student Update(int id, Student student)
         {
             Student dbStudent = GetById(id);
@@ -38,7 +37,6 @@ namespace Service.Services
             _studentRepository.Update(student);
             return dbStudent;
         }
-
         public Student GetById(int id)
         {
             var student = _studentRepository.Get(m => m.Id == id);
@@ -52,11 +50,9 @@ namespace Service.Services
             _studentRepository.Delete(student);
             return student;
         }
-        public Student GetByAge(int age)
+        public List<Student> GetByAge(int age)
         {
-            var student = _studentRepository.Get(m => m.Age == age);
-            if (student is null) return null;
-            return student;
+            return _studentRepository.GetAll(m => m.Age == age);
         }
         public List<Student> Search(string search)
         {
@@ -65,6 +61,11 @@ namespace Service.Services
         public List<Student> GetAll()
         {
             return _studentRepository.GetAll();
+        }
+        public List<Student> GetByGroupId(int id)
+        {
+            var datas = _studentRepository.GetAll(m => m.Group.Id == id);
+            return datas;
         }
     }
 }

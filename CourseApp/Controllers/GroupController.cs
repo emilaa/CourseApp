@@ -14,26 +14,40 @@ namespace CourseApp.Controllers
         {
             Helper.WriteConsole(ConsoleColor.Blue, "Add group name : ");
 
-            string groupname = Console.ReadLine();
+            GroupName: string groupname = Console.ReadLine();
 
-            Helper.WriteConsole(ConsoleColor.Blue, "Add room name : ");
-
-            string roomname = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(groupname))
+            {
+                Helper.WriteConsole(ConsoleColor.Red, "Name can't be space, please try again : ");
+                goto GroupName;
+            }
 
             Helper.WriteConsole(ConsoleColor.Blue, "Add teacher name : ");
 
-            TeacherName: string teachername = Console.ReadLine();
+        TeacherName: string teachername = Console.ReadLine();
 
-            foreach (var item in teachername)
+            for (int i = 0; i <= 9; i++)
             {
-                for (int i = 0; i <= 9; i++)
+                if (teachername.Contains(i.ToString()))
                 {
-                    if (item.ToString() == i.ToString())
-                    {
-                        Helper.WriteConsole(ConsoleColor.Red, $"Add correct type name");
-                        goto TeacherName;
-                    }
+                    Helper.WriteConsole(ConsoleColor.Red, $"Add correct name type : ");
+                    goto TeacherName;
                 }
+                else if (string.IsNullOrWhiteSpace(teachername))
+                {
+                    Helper.WriteConsole(ConsoleColor.Red, $"Name can't be space, please try again : ");
+                    goto TeacherName;
+                }
+            }
+
+            Helper.WriteConsole(ConsoleColor.Blue, "Add room name : ");
+
+            RoomName: string roomname = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(roomname))
+            {
+                Helper.WriteConsole(ConsoleColor.Red, "Name can't be space, please try again : ");
+                goto RoomName;
             }
 
             Group group = new Group
@@ -44,6 +58,7 @@ namespace CourseApp.Controllers
             };
 
             var result = groupService.Create(group);
+            Helper.WriteConsole(ConsoleColor.DarkGreen, "Group created : ");
             Helper.WriteConsole(ConsoleColor.Green, $"Group Id : {result.Id}, Name : {result.Name}, Teacher : {result.Teacher}, Room : {result.Room}");
         }
         public void Update()
@@ -51,6 +66,13 @@ namespace CourseApp.Controllers
             Helper.WriteConsole(ConsoleColor.Blue, "Add group id : ");
 
             GroupId: string updateGroupId = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(updateGroupId))
+            {
+                Helper.WriteConsole(ConsoleColor.Red, "Id can't be space, please try again : ");
+                goto GroupId;
+            }
+
             int groupId;
             bool isGroupId = int.TryParse(updateGroupId, out groupId);
             
@@ -62,27 +84,41 @@ namespace CourseApp.Controllers
                 {
                     Helper.WriteConsole(ConsoleColor.Blue, "Add group new name : ");
 
-                    string groupNewName = Console.ReadLine();
+                    GroupName: string groupNewName = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(groupNewName))
+                    {
+                        Helper.WriteConsole(ConsoleColor.Red, "Name can't be space, please try again : ");
+                        goto GroupName;
+                    }
 
                     Helper.WriteConsole(ConsoleColor.Blue, "Add group new teacher : ");
 
                 TeacherName: string teacherNewName = Console.ReadLine();
 
-                    foreach (var item in teacherNewName)
+                    for (int i = 0; i <= 9; i++)
                     {
-                        for (int i = 0; i <= 9; i++)
+                        if (teacherNewName.Contains(i.ToString()))
                         {
-                            if (item.ToString() == i.ToString())
-                            {
-                                Helper.WriteConsole(ConsoleColor.Red, $"Add correct type name");
-                                goto TeacherName;
-                            }
+                            Helper.WriteConsole(ConsoleColor.Red, $"Add correct name type : ");
+                            goto TeacherName;
+                        }
+                        else if (string.IsNullOrWhiteSpace(teacherNewName))
+                        {
+                            Helper.WriteConsole(ConsoleColor.Red, $"Name can't be space, please try again : ");
+                            goto TeacherName;
                         }
                     }
 
                     Helper.WriteConsole(ConsoleColor.Blue, "Add group new room : ");
 
-                    string roomNewName = Console.ReadLine();
+                    RoomName: string roomNewName = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(roomNewName))
+                    {
+                        Helper.WriteConsole(ConsoleColor.Red, "Name can't be space, please try again : ");
+                        goto RoomName;
+                    }
 
                     Group group = new Group()
                     {
@@ -95,23 +131,24 @@ namespace CourseApp.Controllers
 
                     if (resultGroup == null) 
                     {
-                        Helper.WriteConsole(ConsoleColor.Red, "Group not found, please try again");
+                        Helper.WriteConsole(ConsoleColor.Red, "Group not found, please try again : ");
                         goto GroupId;
                     }
                     else
                     {
+                        Helper.WriteConsole(ConsoleColor.DarkGreen, "Group updated : ");
                         Helper.WriteConsole(ConsoleColor.Green, $"Group Id : {resultGroup.Id}, Name : {resultGroup.Name}, Teacher : {resultGroup.Teacher}, Room : {resultGroup.Room}");
                     }
                 }
                 else
                 {
-                    Helper.WriteConsole(ConsoleColor.Red, "Add correct id type");
+                    Helper.WriteConsole(ConsoleColor.Red, "Add correct id type : ");
                     goto GroupId;
                 }
             }
             else
             {
-                Helper.WriteConsole(ConsoleColor.Red, "Group not found, please try again");
+                Helper.WriteConsole(ConsoleColor.Red, "Group not found, please try again : ");
                 goto GroupId;
             }
         }
@@ -119,6 +156,12 @@ namespace CourseApp.Controllers
         {
             Helper.WriteConsole(ConsoleColor.Blue, "Add group id : ");
         GroupId: string groupId = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(groupId))
+            {
+                Helper.WriteConsole(ConsoleColor.Red, "Id can't be space, please try again : ");
+                goto GroupId;
+            }
 
             int id;
             bool isGroupId = int.TryParse(groupId, out id);
@@ -128,17 +171,17 @@ namespace CourseApp.Controllers
                 var result = groupService.Delete(id);
                 if (result == null)
                 {
-                    Helper.WriteConsole(ConsoleColor.Red, "Select correct id : ");
+                    Helper.WriteConsole(ConsoleColor.Red, "Add correct id : ");
                     goto GroupId;
                 }
                 else
                 {
-                    Helper.WriteConsole(ConsoleColor.Green, "Group deleted");
+                    Helper.WriteConsole(ConsoleColor.DarkGreen, "Group deleted ! ");
                 }
             }
             else
             {
-                Helper.WriteConsole(ConsoleColor.Red, "Select correct id type : ");
+                Helper.WriteConsole(ConsoleColor.Red, "Add correct id type : ");
                 goto GroupId;
             }
         }
@@ -146,6 +189,12 @@ namespace CourseApp.Controllers
         {
             Helper.WriteConsole(ConsoleColor.Blue, "Add group id : ");
         GroupId: string groupId = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(groupId))
+            {
+                Helper.WriteConsole(ConsoleColor.Red, "Id can't be space, please try again : ");
+                goto GroupId;
+            }
 
             int id;
             bool isGroupId = int.TryParse(groupId, out id);
@@ -156,11 +205,12 @@ namespace CourseApp.Controllers
 
                 if (group != null)
                 {
+                    Helper.WriteConsole(ConsoleColor.DarkGreen, "Group founded : ");
                     Helper.WriteConsole(ConsoleColor.Green, $"Group Id : {group.Id}, Name : {group.Name}, Teacher : {group.Teacher}, Room : {group.Room}");
                 }
                 else
                 {
-                    Helper.WriteConsole(ConsoleColor.Red, "Group not found");
+                    Helper.WriteConsole(ConsoleColor.Red, "Group not found, please try again : ");
                     goto GroupId;
                 }
             }
@@ -176,14 +226,21 @@ namespace CourseApp.Controllers
 
             foreach (var item in groups)
             {
+                Helper.WriteConsole(ConsoleColor.DarkGreen, "All groups founded : ");
                 Helper.WriteConsole(ConsoleColor.Green, $"Group Id : {item.Id}, Name : {item.Name}, Teacher : {item.Teacher}, Room : {item.Room}");
             }
         }
         public void Search()
         {
-            Helper.WriteConsole(ConsoleColor.Blue, "Add group search name : ");
+            Helper.WriteConsole(ConsoleColor.Blue, "Search with group name : ");
 
         SearchName: string search = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                Helper.WriteConsole(ConsoleColor.Red, "Name can't be space, please try again : ");
+                goto SearchName;
+            }
 
             List<Group> resultGroups = groupService.Search(search);
 
@@ -191,12 +248,13 @@ namespace CourseApp.Controllers
             {
                 foreach (var item in resultGroups)
                 {
+                    Helper.WriteConsole(ConsoleColor.DarkGreen, "Result by name : ");
                     Helper.WriteConsole(ConsoleColor.Green, $"Group Id : {item.Id}, Name : {item.Name}, Teacher : {item.Teacher}, Room : {item.Room}");
                 }
             }
             else
             {
-                Helper.WriteConsole(ConsoleColor.Red, "Group not found");
+                Helper.WriteConsole(ConsoleColor.Red, "Group not found, please try again : ");
                 goto SearchName;
             }
         }
@@ -206,15 +264,17 @@ namespace CourseApp.Controllers
         
         TeacherName: string teacherName = Console.ReadLine();
 
-            foreach (var item in teacherName)
+            for (int i = 0; i <= 9; i++)
             {
-                for (int i = 0; i <= 9; i++)
+                if (teacherName.Contains(i.ToString()))
                 {
-                    if (item.ToString() == i.ToString())
-                    {
-                        Helper.WriteConsole(ConsoleColor.Red, $"Add correct type name : ");
-                        goto TeacherName;
-                    }
+                    Helper.WriteConsole(ConsoleColor.Red, $"Add correct name type : ");
+                    goto TeacherName;
+                }
+                else if (string.IsNullOrWhiteSpace(teacherName))
+                {
+                    Helper.WriteConsole(ConsoleColor.Red, $"Name can't be space, please try again : ");
+                    goto TeacherName;
                 }
             }
 
@@ -224,12 +284,13 @@ namespace CourseApp.Controllers
             {
                 foreach (var item in resultTeachers)
                 {
+                    Helper.WriteConsole(ConsoleColor.DarkGreen, "Groups founded : ");
                     Helper.WriteConsole(ConsoleColor.Green, $"Group id : {item.Id}, Name : {item.Name}, Teacher : {item.Teacher}, Room : {item.Room}");
                 }
             }
             else
             {
-                Helper.WriteConsole(ConsoleColor.Red, "Teacher not found ! ");
+                Helper.WriteConsole(ConsoleColor.Red, "Teacher not found, please try again : ");
                 goto TeacherName;
             }
         }
@@ -239,12 +300,19 @@ namespace CourseApp.Controllers
 
             RoomName: string roomName = Console.ReadLine();
 
+            if (string.IsNullOrWhiteSpace(roomName))
+            {
+                Helper.WriteConsole(ConsoleColor.Red, "Name can't be space, please try again : ");
+                goto RoomName;
+            }
+
             List<Group> resultRooms = groupService.GetByRoom(roomName);
 
             if (resultRooms.Count != 0)
             {
                 foreach (var item in resultRooms)
                 {
+                    Helper.WriteConsole(ConsoleColor.DarkGreen, "Groups founded : ");
                     Helper.WriteConsole(ConsoleColor.Green, $"Group id : {item.Id}, Name : {item.Name}, Teacher : {item.Teacher}, Room : {item.Room}");
                 }
             }
@@ -254,6 +322,5 @@ namespace CourseApp.Controllers
                 goto RoomName;
             }
         }  
-
     }
 }

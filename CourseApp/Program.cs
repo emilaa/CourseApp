@@ -78,7 +78,7 @@ namespace CourseApp
                             break;
 
                         case (int)Menues.GetAllStudentsByGroupId:
-                            Console.WriteLine();
+                            studentController.GetByGroupId();
                             break;
 
                         case (int)Menues.SearchForGroupsByName:
