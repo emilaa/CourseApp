@@ -162,6 +162,13 @@ namespace CourseApp.Controllers
             Helper.WriteConsole(ConsoleColor.Blue, "Add student id : ");
 
         StudentId: string updateStudentId = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(updateStudentId))
+            {
+                Helper.WriteConsole(ConsoleColor.Red, "Id can't be space, please try again : ");
+                goto StudentId;
+            }
+
             int studentId;
             bool isStudentId = int.TryParse(updateStudentId, out studentId);
 

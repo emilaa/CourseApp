@@ -66,6 +66,13 @@ namespace CourseApp.Controllers
             Helper.WriteConsole(ConsoleColor.Blue, "Add group id : ");
 
             GroupId: string updateGroupId = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(updateGroupId))
+            {
+                Helper.WriteConsole(ConsoleColor.Red, "Id can't be space, please try again : ");
+                goto GroupId;
+            }
+
             int groupId;
             bool isGroupId = int.TryParse(updateGroupId, out groupId);
             
